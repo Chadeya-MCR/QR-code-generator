@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4361ee',
+            secondary: '#3f37c9',
+            success: '#4cc9f0',
+            error: '#ef476f',
+          },
+          boxShadow: {
+            'custom': '0 4px 6px rgba(0, 0, 0, 0.1)',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- QRCode.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="scripts/main.js" defer></script>
+</head>
+<body class="bg-slate-50 text-gray-800 font-sans">
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-primary to-secondary text-white shadow-custom py-8 mb-8">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl font-semibold mb-2">QR Code Generator</h1>
+      <p class="opacity-90 font-light">Create custom QR codes for your business or personal use</p>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="max-w-3xl mx-auto px-6">
+    <!-- Input Form Card -->
+    <div class="bg-white rounded-lg shadow-custom p-6 md:p-8 mb-8">
+      <div class="mb-6">
+        <label for="text" class="block mb-2 font-medium text-gray-700">Enter text or URL</label>
+        <div class="flex rounded-lg overflow-hidden shadow-sm">
+          <input type="text" id="text" placeholder="e.g, https://example.com, text or phone number" 
+            class="flex-1 p-3 border border-r-0 border-gray-200 rounded-l-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+            autofocus>
+          <button id="generateBtn" 
+            class="bg-primary text-white px-6 py-3 font-medium flex items-center gap-2 hover:bg-secondary transition-colors">
+            <span>Generate</span>
+            <span id="spinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+          </button>
+        </div>
+        <div id="errorMessage" class="hidden text-error text-sm mt-2"></div>
+      </div>
+      
+      <!-- Options -->
+      <div class="flex flex-wrap gap-4 mb-6">
+        <div class="flex-1 min-w-[150px]">
+          <label for="errorCorrection" class="block mb-2 font-medium text-gray-700">Error Correction</label>
+          <select id="errorCorrection" 
+            class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+            <option value="L">Low (7%)</option>
+            <option value="M">Medium (15%)</option>
+            <option value="Q">Quartile (25%)</option>
+            <option value="H" selected>High (30%)</option>
+          </select>
+        </div>
+        <div class="flex-1 min-w-[150px]">
+          <label for="size" class="block mb-2 font-medium text-gray-700">Size</label>
+          <select id="size" 
+            class="w-full p-2.5 border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+            <option value="200">Small (200×200)</option>
+            <option value="300" selected>Medium (300×300)</option>
+            <option value="400">Large (400×400)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Result Card (Hidden by Default) -->
+    <div id="resultCard" class="hidden bg-white rounded-lg shadow-custom p-6 md:p-8 mb-8">
+      <div class="flex flex-col items-center mt-8">
+        <div class="p-6 bg-white shadow-custom rounded-lg">
+          <div id="qrcode" class="mx-auto"></div>
+        </div>
+        <div class="flex gap-4 mt-6">
+          <button id="downloadBtn" 
+            class="bg-primary text-white px-6 py-3 font-medium flex items-center gap-2 rounded hover:bg-secondary transition-colors">
+            <i class="fas fa-download"></i> Download
+          </button>
+          <button id="resetBtn" 
+            class="bg-white text-primary px-6 py-3 font-medium border border-primary rounded flex items-center gap-2 hover:bg-blue-50 hover:text-secondary hover:border-secondary transition-colors">
+            <i class="fas fa-redo"></i> Create New
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-500 text-sm mt-8 border-t border-gray-200">
+    <div class="max-w-3xl mx-auto px-6">
+      <p>© 2025 QR Code Generator Tool. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
